@@ -1,0 +1,52 @@
+@import 'variables';
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0 auto;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Fjalla One', sans-serif;
+	font-weight: 500;
+	background-image: url(fondo.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.morphing {
+	position: relative;
+	font-size: 40px;
+	color: #ff9100;
+	min-height: 100vh;
+	filter: blur(1px) contrast(2);
+}
+
+.word {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	animation: word $speed infinite ease-in-out;
+}
+
+@for $i from 0 to $wordCount {
+	&:nth-child(#{$i + 1}) {
+		animation-delay: ($speed / ($wordCount + 1) * $i) - $speed;
+	}
+}
+
+@keyframes word {
+	0%,
+	5%,
+	100% {
+		filter: blur(0px);
+		opacity: 1;
+	}
+	20%,
+	80% {
+		filter: blur(1em);
+		opacity: 0;
+	}
+}
